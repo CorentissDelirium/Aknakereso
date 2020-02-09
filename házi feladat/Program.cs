@@ -49,14 +49,14 @@ namespace Aknakereso
 
         static int Tipp(char[,] pálya, int lépx, int lépy)
         {
-            int db;
-            for (int i = 0; i < pálya.GetLength(0); i++)
+            int db=0;
+            for (int i = lépx-1; i <=lépx+1; i++)
             {
-                for (int j = 0; j < pálya.GetLength(1); j++)
+                for (int j = lépy-1; j <=lépy+1; j++)
                 {
-                    if ()
+                    if (lépx-1=='B'|| lépx + 1 == 'B'||lépy-1=='B'|| lépy + 1 == 'B')
                     {
-
+                        db++;
                     }
                 }
             }
