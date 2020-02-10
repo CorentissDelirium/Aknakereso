@@ -37,8 +37,7 @@ namespace Aknakereso
             do
             {
                 Lépés(pálya, out lépx, out lépy);  //bekér egy sor és oszlop indexet és kirak egy X-et.
-                Console.WriteLine("A koordináták szomszédjában lévő bombák száma: "+Tipp(pálya, lépx, lépy));
-                Console.WriteLine();
+                
                 
             } while (pálya[lépx, lépy] != 'B');
             
@@ -56,11 +55,11 @@ namespace Aknakereso
         static int Tipp(char[,] pálya, int lépx, int lépy)
         {
             int db=0;
-            for (int i = 0; i <=pálya.GetLength(0); i++)
+            for (int i = -1; i <2; i++)
             {
-                for (int j = 0; j <=pálya.GetLength(1); j++)
+                for (int j = -1; j <2; j++)
                 {
-                    if (lépx-pálya[i-1,j]=='B'|| lépx+pálya[i+1,j]  == 'B'|| lépy-pálya[i,j-1]== 'B'|| lépy + pálya[i, j + 1] == 'B')
+                    if (pálya[lépx+j,lépy+i]=='B')
                     {
                         db++;
                     }
@@ -75,6 +74,7 @@ namespace Aknakereso
             lépx = int.Parse(Console.ReadLine()) - 1;
             Console.WriteLine("X koordináta:");
             lépy = int.Parse(Console.ReadLine()) - 1;
+            Console.Clear();
             if (lépx > 10 || lépy > 10)
             {
                 Console.WriteLine("Csak 10 és az alatti kordinátákat adhat meg!");
@@ -104,13 +104,17 @@ namespace Aknakereso
             {
                 for (int j = 0; j < pálya.GetLength(1); j++)
                 {
-                    if (legyenBomba==false)
+                    if (legyenBomba)
                     {
                         Console.Write(pálya[i, j]);
                     }
                     else if (pálya[i, j] != 'X')
                     {
                         Console.Write('_');
+                    }
+                    else
+                    {
+                        Console.Write('X');
                     }
 
                     Console.Write('|');
