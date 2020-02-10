@@ -33,12 +33,18 @@ namespace Aknakereso
             
             int lépx;
             int lépy;
+            
             do
             {
                 Lépés(pálya, out lépx, out lépy);  //bekér egy sor és oszlop indexet és kirak egy X-et.
+                Console.WriteLine("A koordináták szomszédjában lévő bombák száma: "+Tipp(pálya, lépx, lépy));
+                Console.WriteLine();
+                
             } while (pálya[lépx, lépy] != 'B');
             
-            Tipp(pálya, lépx, lépy);
+
+
+            Console.WriteLine("A szomszédos mezőkben lévő bombák száma:", Tipp(pálya,lépx,lépy) );
 
             //Függvény, ami megadja hogy az adott hely(x,y) szomszédjában hány db bomba van. Házi
 
@@ -50,11 +56,11 @@ namespace Aknakereso
         static int Tipp(char[,] pálya, int lépx, int lépy)
         {
             int db=0;
-            for (int i = lépx-1; i <=lépx+1; i++)
+            for (int i = 0; i <=pálya.GetLength(0); i++)
             {
-                for (int j = lépy-1; j <=lépy+1; j++)
+                for (int j = 0; j <=pálya.GetLength(1); j++)
                 {
-                    if (lépx-1=='B'|| lépx + 1 == 'B'||lépy-1=='B'|| lépy + 1 == 'B')
+                    if (lépx-pálya[i-1,j]=='B'|| lépx+pálya[i+1,j]  == 'B'|| lépy-pálya[i,j-1]== 'B'|| lépy + pálya[i, j + 1] == 'B')
                     {
                         db++;
                     }
@@ -65,9 +71,9 @@ namespace Aknakereso
 
         static void Lépés(char[,] pálya, out int lépx, out int lépy)
         {
-            Console.WriteLine("X koordináta:");
-            lépx = int.Parse(Console.ReadLine()) - 1;
             Console.WriteLine("Y koordináta:");
+            lépx = int.Parse(Console.ReadLine()) - 1;
+            Console.WriteLine("X koordináta:");
             lépy = int.Parse(Console.ReadLine()) - 1;
             if (lépx > 10 || lépy > 10)
             {
@@ -98,7 +104,7 @@ namespace Aknakereso
             {
                 for (int j = 0; j < pálya.GetLength(1); j++)
                 {
-                    if (legyenBomba)
+                    if (legyenBomba==false)
                     {
                         Console.Write(pálya[i, j]);
                     }
