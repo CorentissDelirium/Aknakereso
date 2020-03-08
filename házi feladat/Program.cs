@@ -36,7 +36,7 @@ namespace Aknakereso
             
             do
             {
-                Lépés(pálya, out lépx, out lépy);  //bekér egy sor és oszlop indexet és kirak egy X-et.
+                Lépés(pálya, out lépx, out lépy, legyenBomba);  //bekér egy sor és oszlop indexet és kirak egy X-et.
                 
                 
             } while (pálya[lépx, lépy] != 'B');
@@ -46,6 +46,7 @@ namespace Aknakereso
             Console.WriteLine("A szomszédos mezőkben lévő bombák száma:", Tipp(pálya,lépx,lépy) );
 
             //Függvény, ami megadja hogy az adott hely(x,y) szomszédjában hány db bomba van. Házi
+           
 
 
 
@@ -68,16 +69,19 @@ namespace Aknakereso
             return db;
         }
 
-        static void Lépés(char[,] pálya, out int lépx, out int lépy)
+        static void Lépés(char[,] pálya, out int lépx, out int lépy, bool legyenBomba)
         {
+
             Console.WriteLine("Y koordináta:");
             lépx = int.Parse(Console.ReadLine()) - 1;
             Console.WriteLine("X koordináta:");
             lépy = int.Parse(Console.ReadLine()) - 1;
+            
             Console.Clear();
             if (lépx > 10 || lépy > 10)
             {
                 Console.WriteLine("Csak 10 és az alatti kordinátákat adhat meg!");
+                Kirajzoló(pálya, legyenBomba);
                 Console.WriteLine("X koordináta:");
                 lépx = int.Parse(Console.ReadLine()) - 1;
                 Console.WriteLine("Y koordináta:");
@@ -93,6 +97,7 @@ namespace Aknakereso
                 pálya[lépx, lépy] = 'X';
                 Kirajzoló(pálya, false);
             }
+            
 
             
 
