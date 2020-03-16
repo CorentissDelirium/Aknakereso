@@ -10,6 +10,40 @@ namespace Aknakereso
     {
 
 
+        static void Main(string[] args)
+        {
+
+            char[,] pálya = new char[10, 10];
+            Decoration(pálya);
+            Console.WriteLine("Add meg a bombák számát: ");
+            int bombaSzám = int.Parse(Console.ReadLine());
+
+            Feltöltés(pálya);
+            BombaSorsoló(pálya, bombaSzám);
+            bool legyenBomba = false;
+            Kirajzoló(pálya, legyenBomba);
+
+            int lépx;
+            int lépy;
+
+            do
+            {
+                Lépés(pálya, out lépx, out lépy, legyenBomba);  //bekér egy sor és oszlop indexet és kirak egy X-et.
+                Console.WriteLine($"A szomszédos mezőkben lévő bombák száma: {Tipp(pálya, lépx, lépy)}");
+
+            } while (pálya[lépx, lépy] != 'B');
+
+
+
+
+
+            //Függvény, ami megadja hogy az adott hely(x,y) szomszédjában hány db bomba van. Házi.
+
+
+
+
+            Console.ReadKey();
+        }
         static void Feltöltés(char[,] pálya)
         {
             for (int sor = 0; sor < pálya.GetLength(0); sor++)
@@ -21,46 +55,26 @@ namespace Aknakereso
             }
         }
 
-        static void Main(string[] args)
+        static void Decoration(char[,] pálya)
         {
-            char[,] pálya = new char[10, 10];
-            Console.WriteLine("Add meg a bombák számát: ");
-            int bombaSzám = int.Parse(Console.ReadLine());
-            Feltöltés(pálya);
-            BombaSorsoló(pálya, bombaSzám);
-            bool legyenBomba = false;
-            Kirajzoló(pálya, legyenBomba);
-            
-            int lépx;
-            int lépy;
-            
-            do
-            {
-                Lépés(pálya, out lépx, out lépy, legyenBomba);  //bekér egy sor és oszlop indexet és kirak egy X-et.
-                
-                
-            } while (pálya[lépx, lépy] != 'B');
-            
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Clear();
+            Console.SetCursorPosition(50, 0);
+            Console.WriteLine("MineSweeper");
+            Console.WriteLine();
 
 
-            Console.WriteLine("A szomszédos mezőkben lévő bombák száma:", Tipp(pálya,lépx,lépy) );
-
-            //Függvény, ami megadja hogy az adott hely(x,y) szomszédjában hány db bomba van. Házi
-           
-
-
-
-            Console.ReadKey();
         }
 
         static int Tipp(char[,] pálya, int lépx, int lépy)
         {
-            int db=0;
-            for (int i = -1; i <2; i++)
+            int db = 0;
+            for (int i = -1; i < 2; i++)
             {
-                for (int j = -1; j <2; j++)
+                for (int j = -1; j < 2; j++)
                 {
-                    if (pálya[lépx+j,lépy+i]=='B')
+                    if (pálya[lépx + j, lépy + i] == 'B')
                     {
                         db++;
                     }
@@ -76,7 +90,7 @@ namespace Aknakereso
             lépx = int.Parse(Console.ReadLine()) - 1;
             Console.WriteLine("X koordináta:");
             lépy = int.Parse(Console.ReadLine()) - 1;
-            
+
             Console.Clear();
             if (lépx > 10 || lépy > 10)
             {
@@ -96,22 +110,26 @@ namespace Aknakereso
             {
                 pálya[lépx, lépy] = 'X';
                 Kirajzoló(pálya, false);
+                Tipp(pálya, lépx, lépy);
             }
-            
 
-            
+
+
 
         }
 
         static void Kirajzoló(char[,] pálya, bool legyenBomba)
         {
+
             for (int i = 0; i < pálya.GetLength(0); i++)
             {
                 for (int j = 0; j < pálya.GetLength(1); j++)
                 {
+
                     if (legyenBomba)
                     {
                         Console.Write(pálya[i, j]);
+
                     }
                     else if (pálya[i, j] != 'X')
                     {
